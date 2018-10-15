@@ -65,13 +65,14 @@ Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Les
 
 ## DEMO
 说好的demo,粘贴一段代码看看什么样子。
-`` `java  
-public class Test{  
-public static void main(String[] args) {  
-System.out.println("Hello, world!");  
-}  
-}  
-`` `  
+```java
+public class Test{
+public static void main(String[] args) {
+System.out.println("Hello, world!");
+}
+}
+```
+
 
 ## 后记
 
