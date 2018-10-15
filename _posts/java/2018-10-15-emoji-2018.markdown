@@ -17,6 +17,7 @@ tags:
 ## 前言
 
 原文地址：http://www.itcodai.com/blog/26
+
 [跳过废话，直接看技术实现 ](#build) 
 
 
@@ -27,7 +28,7 @@ github地址：https://github.com/vdurmont/emoji-java
 
 ## 正文
 1. 引入maven依赖
-```
+```mxml
 <dependency>
   <groupId>com.vdurmont</groupId>
   <artifactId>emoji-java</artifactId>
