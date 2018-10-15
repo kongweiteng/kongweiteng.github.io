@@ -28,13 +28,14 @@ github地址：https://github.com/vdurmont/emoji-java
 
 ## 正文
 1. 引入maven依赖
-```mxml
+```xml
 <dependency>
   <groupId>com.vdurmont</groupId>
   <artifactId>emoji-java</artifactId>
   <version>4.0.0</version>
 </dependency>
 ```
+
 
 
 
