@@ -105,5 +105,9 @@ friends: [
     {
         title: "gitee",
         href: "https://gitee.com/kongweiteng"
-    }
+    },
+    {
+            title: "github",
+            href: "https://gitee.com/kongweiteng"
+        }
 ]
