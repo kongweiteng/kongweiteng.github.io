@@ -1,8 +1,8 @@
 # Hux Blog
 
-### [View Live Hux Blog &rarr;](https://huangxuan.me)
+### [View Live Hux Blog &rarr;](http://kongweiteng.github.io)
 
-![](http://huangxuan.me/img/blog-desktop.jpg)
+![](http://kongweiteng.github.io/img/blog-desktop.jpg)
 
 
 
