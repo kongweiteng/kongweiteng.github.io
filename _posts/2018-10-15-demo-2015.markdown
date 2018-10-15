@@ -63,6 +63,12 @@ Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Les
 第二天考虑中文字体的渲染，fork 了 [Type is Beautiful](http://www.typeisbeautiful.com/) 的 `font` CSS，调整了字号，适配了 Win 的渣渲染，中英文混排效果好多了。
 
 
+## DEMO
+说好的demo,粘贴一段代码看看什么样子。
+public static void main(String[] args) {
+		SpringApplication.run(EnergyAppApplication.class, args);
+	}
+
 ## 后记
 
 回顾这个博客的诞生，纯粹是出于个人兴趣。在知乎相关问题上回答并获得一定的 star 后，我决定把这个博客主题当作一个小小的开源项目来维护。
