@@ -15,7 +15,9 @@ tags:
 
 ## 前言
 
-kwt 的 Blog 就这么开通了。借鉴博客地址：http://huangxuan.me
+kwt 的 Blog 就这么开通了。
+本文很多内容是原作者的内容，只是为了集成一个demo供以后使用。
+借鉴博客地址：http://huangxuan.me
 
 [跳过废话，直接看技术实现 ](#build) 
 
@@ -64,12 +66,12 @@ Theme 的 CSS 是基于 Bootstrap 定制的，看得不爽的地方直接在 Les
 
 
 ## DEMO
-说好的demo,粘贴一段代码看看什么样子。
+说好的demo,粘贴一段java代码看看什么样子。
 ```java
-public class Test{
-public static void main(String[] args) {
-System.out.println("Hello, world!");
-}
+public class EnergyAppApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(EnergyAppApplication.class, args);
+	}
 }
 ```
 

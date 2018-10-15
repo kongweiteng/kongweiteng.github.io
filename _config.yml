@@ -78,7 +78,7 @@ ga_domain: huangxuan.me
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "If we sail against the current, we will not retreat.<br>行如逆水行舟，不进则退"
+sidebar-about-description: "If we sail against the current, we will not retreat.<br>行如逆水行舟，不进则退<br>kongweiteng@sina.com"
 sidebar-avatar: /img/avatar-kwt-ny.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
