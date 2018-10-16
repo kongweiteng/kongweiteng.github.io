@@ -20,9 +20,7 @@ tags:
 
 
 ## elk下载地址
-```html
-<a name="下载地址">https://www.elastic.co/cn/downloads</a>
-```
+
 https://www.elastic.co/cn/downloads
 
 ## 安装elasticsearch：
