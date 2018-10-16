@@ -9,6 +9,8 @@ catalog: true
 tags:
     - elk
     - devops
+    - java
+    - linux
 ---
 ·
 > “elk is very good!”
