@@ -1,0 +1,116 @@
+---
+layout:     post
+title:      "elk日志系统搭建"
+subtitle:   " \"elk日志系统搭建\""
+date:       2018-10-16 16:00:00
+author:     "kwt"
+header-img: 
+catalog: true
+tags:
+    - elk
+    - devops
+---
+·
+> “elk is very good!”
+
+
+## 介绍elk
+* 组成：elk是由 elasticsearch、logstash、kibana 三部分组成，当然如果你需要在logstash上层加一个redis或者mq(kafka、rabbitmq)也是没问题的。
+* 分工：elasticsearch 负责存储日志信息，logstash负责监听接收信息后存储到elasticsearch，kibana是一个数据可视化展示系统。
+
+
+## elk下载地址
+https://www.elastic.co/cn/downloads
+
+## 安装elasticsearch：
+
+* 创建 elasticsearch  用户
+
+```text
+useradd elasticsearch
+```
+* 给用户文件夹的权限
+
+```text
+chown -R elasticsearch  /home/elasticsearch/elasticsearch-6.3.2/  #给用户elasticsearch 授权
+```
+* 解压
+
+```text
+tar zxvf elasticsearch-5.4.0.tar.gz
+```
+* 进入安装目录
+
+```text
+cd elasticsearch-5.4.0
+```
+* 修改配置文件
+
+```text
+vi config/elasticsearch.yml    
+        network.host: ip    #服务器地址  
+        bootstrap.system_call_filter: false 
+
+```
+* 后台方式启动项目  
+
+```text
+./bin/elasticsearch -d
+```
+* 检查是否启动成功
+
+```text
+curl -X GET http://ip:9200
+```
+* 如果启动失败,查看日志
+
+```text
+tail -500f logs/elasticsearch.log  
+```
+
+* 安装elasticsearch 有可能会遇到的问题
+    
+ ```text
+错误：max number of threads [1024] for user [lishang] likely too low, increase to at least [2048]
+vi /etc/security/limits.d/90-nproc.conf 
+soft    nproc     1024
+soft    nproc     2048
+```
+        
+ ```text
+错误：max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+vi /etc/sysctl.conf
+vm.max_map_count=262144
+
+修改完这个文件后需要执行一个命令才能生效  sysctl -p
+```
+
+
+ ```text
+错误：max file descriptors [4096] for elasticsearch process likely too low, increase to at least [65536]
+vi /etc/security/limits.conf
+soft nofile 65536
+hard nofile 65536
+```
+
+* 在生产环境中可能es吃内存很多，由于es是java写的，需要在启动时设置堆内存的大小能防止内存的溢出
+
+```text
+elasticsearch 启动文件中设置   ES_JAVA_OPTS="-Xms2g -Xmx2g"  #设置最小和最大堆的值为2g
+```
+
+* 如果es索引被保护成只读，恢复方式
+
+    可以在kibana的Dev Tools 中执行下边的命令
+```text
+PUT _settings
+    {
+    "index": {
+    "blocks": {
+    "read_only_allow_delete": "false"
+    }
+    }
+    }
+```
+
+## 安装logstash：
