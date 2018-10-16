@@ -113,8 +113,8 @@ nohup ./bin/kibana >kibana.log 2>&1
 http://ip:5601 
 ```
 
-## logstash和logback可以直接对接
-
+## logback配置
+logstash和logback可以直接对接，当然如果数据量很多，可以考虑使用redis或者mq转发日志信息。
 * 1、添加依赖（可以自行查找新版本）
 ```xml
 <dependency>
