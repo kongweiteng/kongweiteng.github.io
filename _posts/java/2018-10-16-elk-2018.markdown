@@ -25,85 +25,44 @@ https://www.elastic.co/cn/downloads
 
 ## 安装elasticsearch：
 
-* 创建 elasticsearch  用户
-
 ```text
-useradd elasticsearch
-```
-* 给用户文件夹的权限
-
-```text
-chown -R elasticsearch  /home/elasticsearch/elasticsearch-6.3.2/  #给用户elasticsearch 授权
-```
-* 解压
-
-```text
-tar zxvf elasticsearch-5.4.0.tar.gz
-```
-* 进入安装目录
-
-```text
-cd elasticsearch-5.4.0
-```
-* 修改配置文件
-
-```text
-vi config/elasticsearch.yml    
-        network.host: ip    #服务器地址  
-        bootstrap.system_call_filter: false 
-
-```
-* 后台方式启动项目  
-
-```text
-./bin/elasticsearch -d
-```
-* 检查是否启动成功
-
-```text
-curl -X GET http://ip:9200
-```
-* 如果启动失败,查看日志
-
-```text
+1、#创建 elasticsearch  用户
+useradd elasticsearch    
+2、#给用户文件夹的权限
+chown -R elasticsearch（用户）  /home/elasticsearch/elasticsearch-6.3.2/  
+3、#解压
+tar zxvf elasticsearch-5.4.0.tar.gz    
+4、 #进入安装目录
+cd elasticsearch-5.4.0       
+5、#修改配置文件 
+vi config/elasticsearch.yml  
+    network.host: ip    #服务器地址  
+    bootstrap.system_call_filter: false  
+6、#后台方式启动项目  
+./bin/elasticsearch -d   
+7、 #检查是否启动成功
+curl -X GET http://ip:9200 
+8、 #启动失败,查看日志
 tail -500f logs/elasticsearch.log  
-```
-
-* 安装elasticsearch 有可能会遇到的问题
-    
- ```text
-错误：max number of threads [1024] for user [lishang] likely too low, increase to at least [2048]
-vi /etc/security/limits.d/90-nproc.conf 
-soft    nproc     1024
-soft    nproc     2048
-```
-        
- ```text
-错误：max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
-vi /etc/sysctl.conf
-vm.max_map_count=262144
-
-修改完这个文件后需要执行一个命令才能生效  sysctl -p
-```
+9、#安装elasticsearch 有可能会遇到的问题
+（1）错误：max number of threads [1024] for user [lishang] likely too low, increase to at least [2048]
+解决：vi /etc/security/limits.d/90-nproc.conf 
+    			*          soft    nproc     1024
+   			*          soft    nproc     2048
+（2）错误：max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+解决：vi /etc/sysctl.conf
+    			vm.max_map_count=262144
+ 	   修改完这个文件后需要执行一个命令才能生效  sysctl -p
+（3）错误：max file descriptors [4096] for elasticsearch process likely too low, increase to at least [65536]
+解决：vi /etc/security/limits.conf
+    			* soft nofile 65536
+    			* hard nofile 65536
 
 
- ```text
-错误：max file descriptors [4096] for elasticsearch process likely too low, increase to at least [65536]
-vi /etc/security/limits.conf
-soft nofile 65536
-hard nofile 65536
-```
-
-* 在生产环境中可能es吃内存很多，由于es是java写的，需要在启动时设置堆内存的大小能防止内存的溢出
-
-```text
+10.在生产环境中可能es吃内存很多，由于es是java写的，需要在启动时设置堆内存的大小能防止内存的溢出。
 elasticsearch 启动文件中设置   ES_JAVA_OPTS="-Xms2g -Xmx2g"  #设置最小和最大堆的值为2g
-```
 
-* 如果es索引被保护成只读，恢复方式
-
-    可以在kibana的Dev Tools 中执行下边的命令
-```text
+11.如果es索引被保护成只读，恢复方式
 PUT _settings
     {
     "index": {
@@ -112,6 +71,112 @@ PUT _settings
     }
     }
     }
+
+```
+## 安装logstash：
+
+```text
+1、#解压
+tar zxvf logstash-5.4.0.tar.gz
+2、#新增配置文件
+vi config/logstash_conf.conf 
+配置文件内容：
+input {
+  # stdin { }
+  tcp {
+    # host:port就是上面appender中的 destination，
+        # 这里其实把logstash作为服务，开启9250端口接收logback发出的消息
+    host => "192.168.199.115" port => 9250 mode => "server" tags => ["tags"] codec => json_lines
+  }
+}
+output {
+  elasticsearch { hosts => ["http://192.168.199.115:9200"] }
+  #stdout { codec => rubydebug }
+}
+3、#启动项目,加入—debug参数可以看到更多细节
+nohup bin/logstash -f config/logstash_config.conf >logstash.log 2>&1
+
 ```
 
-## 安装logstash：
+## 安装kibana：
+
+```text
+1、 #解压
+tar zxvf kibana-5.4.0-linux-x86_64.tar.gz
+2、#修改配置文件
+vi config/kibana.yml
+ server.host:"ip"
+    	elasticsearch.url:"http://ip:9200"
+3、#启动项目
+nohup ./bin/kibana >kibana.log 2>&1
+4、#登录地址
+http://ip:5601 
+```
+
+## logstash和logback可以直接对接
+
+* 1、添加依赖（可以自行查找新版本）
+```xml
+<dependency>
+   <groupId>net.logstash.logback</groupId>
+    <artifactId>logstash-logback-encoder</artifactId>
+    <version>5.2</version>
+</dependency>
+```
+
+* 2、配置类
+
+    配置好类之后，控制台日志会通过logstash存储到es中
+    
+```java
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import com.alibaba.fastjson.JSON;
+import com.enn.energy.system.common.util.DateUtil;
+import net.logstash.logback.appender.LogstashTcpSocketAppender;
+import net.logstash.logback.encoder.LogstashEncoder;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.net.InetSocketAddress;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 该类是可以配置成xml配置文件的，但是那样的话，就不能由客户端指定参数了
+ */
+@Component
+public class LogstashConfig {
+    @Value("${spring.application.name}")
+    private String service;
+
+    @Value("${spring.profiles.active}")
+    private String profiles;
+
+    @PostConstruct
+    public void init() {
+        Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+        LogstashTcpSocketAppender appender = new LogstashTcpSocketAppender();
+        appender.setName("stash");
+        appender.addDestinations(new InetSocketAddress("10.39.48.49",9250));
+
+        LogstashEncoder encoder = new LogstashEncoder();
+        Map<String,String> map= new HashMap<>();
+        map.put("service",service);//服务名会在日志中显示（可以方便的知道该日志是哪个服务的）
+        map.put("profiles",profiles);
+        map.put("day", DateUtil.formatDate(new Date(),"yyyy-MM-dd"));
+        encoder.setCustomFields(JSON.toJSONString(map));
+        encoder.start();
+
+        appender.setEncoder(encoder);
+        appender.setContext(rootLogger.getLoggerContext());
+        appender.start();
+        rootLogger.addAppender(appender);
+        rootLogger.setLevel(Level.toLevel("info"));
+    }
+}
+```
