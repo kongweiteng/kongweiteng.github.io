@@ -184,6 +184,7 @@ layout: default
 </style>
 {% endif %}
 
+<!--
 <div id="gitmentContainer"></div>
 <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
 <script src="https://billts.site/js/gitment.js"></script>
@@ -199,3 +200,25 @@ layout: default
     });
     gitment.render('gitmentContainer');
 </script>
+-->
+
+
+<!-- Link Gitalk 的支持文件  -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+
+        // gitalk的主要参数
+        clientID: '4cf01086f381af935b32',
+        clientSecret: '564692aceb8a1bbf0a8918e4b67e198aa1537c18',
+        repo: 'kongweiteng.github.io',
+        owner: 'kongweiteng',
+        admin: ['kongweiteng'],
+        id: window.location.pathname,
+
+    });
+    gitalk.render('gitalk-container');
+</script>
+<!-- Gitalk end -->
