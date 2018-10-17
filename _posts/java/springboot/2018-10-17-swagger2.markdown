@@ -1,0 +1,226 @@
+---
+layout:     post
+title:      "spring boot集成swagger文档"
+subtitle:   " \"web项目API文档的生成\""
+date:       2018-10-17 10:00:00
+author:     "kwt"
+header-img: 
+catalog: true
+tags:
+    - spring boot
+    - swagger
+    - java
+---
+·
+> “swagger is very good!”
+
+
+## swagger
+在没有swagger时，开发后台接口你还总需要用postman进行测试接口；在前后端分离的架构中，后台人员还得给前端整理出每个字段的意义。然而使用swagger后就能解决这些问题了。
+
+## 加入依赖
+
+加入以下三个依赖，版本可以根据实际情况而定。
+```xml
+      <dependencys>
+        <dependency>
+              <groupId>io.springfox</groupId>
+              <artifactId>springfox-swagger2</artifactId>
+              <version>${swagger2.version}</version>
+         </dependency>
+         
+         <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+               <version>${springfox-swagger-ui.version}</version>
+          </dependency>
+        
+         <dependency>
+               <groupId>com.github.xiaoymin</groupId>
+               <artifactId>swagger-bootstrap-ui</artifactId>
+               <version>${swagger-bootstrap-ui.version}</version>
+         </dependency>
+      </dependencys> 
+```
+
+https://www.elastic.co/cn/downloads
+
+## swagger配置类
+
+```java
+
+import com.enn.constant.StatusCode;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMethod;
+import springfox.documentation.builders.*;
+import springfox.documentation.schema.ModelRef;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.Parameter;
+import springfox.documentation.service.ResponseMessage;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Configuration
+@EnableSwagger2
+@ComponentScan
+public class Swagger2 {
+
+    @Value("${swagger.show}")
+    private boolean swaggerShow;
+
+    @Bean
+    public Docket createRestApi() {
+        //自定义异常信息
+        ArrayList<ResponseMessage> responseMessages = new ArrayList<ResponseMessage>() {{
+            add(new ResponseMessageBuilder().code(StatusCode.ERROR.getCode()).message(StatusCode.ERROR.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.SUCCESS.getCode()).message(StatusCode.SUCCESS.getMsg()).build());
+
+            /** 平台要求定义返回code  */
+            add(new ResponseMessageBuilder().code(StatusCode.F_A.getCode()).message(StatusCode.F_A.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F_B.getCode()).message(StatusCode.F_B.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F_C.getCode()).message(StatusCode.F_C.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F_D.getCode()).message(StatusCode.F_D.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F_E.getCode()).message(StatusCode.F_E.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F_F.getCode()).message(StatusCode.F_F.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F_G.getCode()).message(StatusCode.F_G.getMsg()).build());
+
+            /** 统一登录返回code  */
+            add(new ResponseMessageBuilder().code(StatusCode.A.getCode()).message(StatusCode.A.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.B.getCode()).message(StatusCode.B.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.C.getCode()).message(StatusCode.C.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.D.getCode()).message(StatusCode.D.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E.getCode()).message(StatusCode.E.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.F.getCode()).message(StatusCode.F.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.G.getCode()).message(StatusCode.G.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.H.getCode()).message(StatusCode.H.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.I.getCode()).message(StatusCode.I.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.G.getCode()).message(StatusCode.J.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.K.getCode()).message(StatusCode.K.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.L.getCode()).message(StatusCode.L.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.M.getCode()).message(StatusCode.M.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.N.getCode()).message(StatusCode.N.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.O.getCode()).message(StatusCode.O.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.P.getCode()).message(StatusCode.P.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.Q.getCode()).message(StatusCode.Q.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.R.getCode()).message(StatusCode.R.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.S.getCode()).message(StatusCode.S.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.T.getCode()).message(StatusCode.T.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.U.getCode()).message(StatusCode.U.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.V.getCode()).message(StatusCode.V.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.W.getCode()).message(StatusCode.W.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.X.getCode()).message(StatusCode.X.getMsg()).build());
+
+
+            /** 自定义返回code  */
+            add(new ResponseMessageBuilder().code(StatusCode.E_A.getCode()).message(StatusCode.E_A.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E_B.getCode()).message(StatusCode.E_B.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E_C.getCode()).message(StatusCode.E_C.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E_D.getCode()).message(StatusCode.E_D.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E_E.getCode()).message(StatusCode.E_E.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E_F.getCode()).message(StatusCode.E_F.getMsg()).build());
+            add(new ResponseMessageBuilder().code(StatusCode.E_G.getCode()).message(StatusCode.E_G.getMsg()).build());
+        }};
+        ParameterBuilder tokenPar = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<Parameter>();
+        tokenPar.name("token").description("令牌(获取Token请联系管理员)").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        pars.add(tokenPar.build());
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(swaggerShow)
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.enn.app.controller"))
+                .paths(PathSelectors.any())
+                .build()
+                .globalOperationParameters(pars)
+                .apiInfo(apiInfo())
+                .useDefaultResponseMessages(false)
+                .globalResponseMessage(RequestMethod.GET, responseMessages)
+                .globalResponseMessage(RequestMethod.POST, responseMessages)
+                .globalResponseMessage(RequestMethod.PUT, responseMessages)
+                .globalResponseMessage(RequestMethod.DELETE, responseMessages);
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .licenseUrl("http://localhost")
+                .license("")
+                .title("用能设备app API")
+                .version("2.0")
+                .contact(new Contact("孔维腾", "", "kongweiteng@enn.cn"))
+                .description("用能设备app专用后台接口")
+                .build();
+    }
+
+}
+```
+此处RequestHandlerSelectors.basePackage("com.enn.app.controller")是扫描项目的包路径。
+此处tokenPar.name("token").description("令牌(获取Token请联系管理员)").modelRef(new ModelRef("string")).parameterType("header").required(false).build(); 用来给每一个接口文档调试页面添加一个请求头的值。
+## 调试
+* json数据
+先调用 http://localhost:8082/v2/api-docs 看是否能正常有json数据返回
+* 调试文档
+访问 http://localhost:8082/doc.html
+
+## 补充
+* 在官方使用swagger时，只依赖前两个jar就可以了；访问swagger自带的UI地址是 访问 http://localhost:8082/swagger-ui.html
+* 第三个jar依赖是在码云上找到的一个漂亮一些，更好用一些的ui空间，gitee地址：https://gitee.com/xiaoym/swagger-bootstrap-ui
+
+## swagger注解的使用
+
+```java
+@RestController
+@RequestMapping("/accountingFormula")
+// 这个类中所有的接口方法都会归类到这个标签下
+@Api(tags = {"核算单元管理"}) 
+// springmvc的参数校验
+@Validated 
+public class AccountingFormulaController {
+   
+    /**
+     *  根据主键id查询
+     * @param id
+     * @return
+     */
+    //@ApiOperation是 具体接口方法的用途以及描述等
+    @ApiOperation(value = "根据核算单元id查询 核算公式", notes = "") 
+    @RequestMapping(value = "/getAccountingFormula", method = RequestMethod.GET)
+    //此处接收的是单个参数，使用@ApiImplicitParams 进行标注，@NotNull 对参数进行校验
+    @ApiImplicitParams({
+                @ApiImplicitParam(name = "id", value = "主键id", required = true)
+        })
+    public EnergyResp<List<AccountingFormula>> getAccountingFormula(@NotNull(message = "请输入合法的id") @RequestParam("id") Long id) {
+        return null;
+    }
+    
+    //当使用@RequestBody接收参数时
+     @ApiOperation(value = "获取企业下一级核算单元", notes = "parentUnit")
+        @RequestMapping(value = "/parentUnit", method = RequestMethod.POST)
+        public EnergyResp<ListResp<AccountingUnit>> getParentEqu(@RequestBody @Valid DefaultReq de, BindingResult result) {
+            return null;
+        }
+        
+        /**
+        *  实体类的注解展示
+        */
+        @ApiModel("请求基类")
+        @Data
+        class DefaultReq {
+            @ApiModelProperty(value = "id", name = "id", example = "123")
+            @NotNull(message = "id 不能为空！")
+            private Long id;
+            
+        }
+        
+}
+
+
+
+
+```
