@@ -117,3 +117,7 @@ avatar-kwt-ny: "/img/avatar-kwt-ny.jpg"
 404-bg: "/img/404-bg.jpg"
 home-bg: "/img/home-bg.jpg"
 default: "/img/defaultbg.jpg"
+
+
+#css
+bootstrap-min:  "/css/bootstrap.min.css"
