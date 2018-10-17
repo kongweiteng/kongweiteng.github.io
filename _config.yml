@@ -113,11 +113,8 @@ friends: [
 
 fileBaseUrl: "https://kongweiteng.oss-cn-beijing.aliyuncs.com/kongweiteng.github.io"
 
-avatar-kwt-ny: "/img/avatar-kwt-ny.jpg"
-404-bg: "/img/404-bg.jpg"
-home-bg: "/img/home-bg.jpg"
-default: "/img/defaultbg.jpg"
+avatar-kwt-ny: "/static/img/avatar-kwt-ny.jpg"
+404-bg: "/static/img/404-bg.jpg"
+home-bg: "/static/img/home-bg.jpg"
+default: "/static/img/defaultbg.jpg"
 
-
-#css
-bootstrap-min:  "/css/bootstrap.min.css"

@@ -4,7 +4,7 @@ title:      "java处理emoji表情"
 subtitle:   " \"使用轻量级工具emoji-java处理emoji表情字符\""
 date:       2018-10-15 16:00:00
 author:     "kwt"
-header-img: "/img/defaultbg.jpg"
+header-img: "/static/img/defaultbg.jpg"
 catalog: true
 tags:
     - java

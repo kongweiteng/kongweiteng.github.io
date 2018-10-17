@@ -4,7 +4,7 @@ title:      "spring boot集成swagger文档"
 subtitle:   " \"web项目API文档的生成\""
 date:       2018-10-17 10:00:00
 author:     "kwt"
-header-img: "/img/defaultbg.jpg"
+header-img: "/static/img/defaultbg.jpg"
 catalog: true
 tags:
     - spring boot
