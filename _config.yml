@@ -108,3 +108,9 @@ friends: [
     }
 ]
 
+
+# file disk
+
+fileBaseUrl: "https://kongweiteng.oss-cn-beijing.aliyuncs.com/kongweiteng.github.io"
+
+avatar-kwt-ny: "/img/avatar-kwt-ny.jpg?Expires=1539768337&OSSAccessKeyId=TMP.AQF8F67Z83mPEMZyxGvMqahG6Qqrwa9SF8U176rlsBFdlKdVVEz26PolpbYpADAtAhQtWTPozbImCg8gkGR4fHDruj4-DgIVALNA5IuvBKoJDH5wCxg1LU_THoKY&Signature=fBj1dDkMaOWdY5Ot5r4kufvFmXE%3D"

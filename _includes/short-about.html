@@ -1,14 +1,21 @@
 <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="{{'/about/' | prepend: site.baseurl }}">ABOUT ME</a></h5>
-  <div class="short-about">
+    <hr>
+    <h5><a href="{{'/about/' | prepend: site.baseurl }}">ABOUT ME</a></h5>
+    <div class="short-about">
 
-    <img src="https://kongweiteng.oss-cn-beijing.aliyuncs.com/kongweiteng.github.io/img/avatar-kwt-ny.jpg?Expires=1539767624&OSSAccessKeyId=TMP.AQF8F67Z83mPEMZyxGvMqahG6Qqrwa9SF8U176rlsBFdlKdVVEz26PolpbYpADAtAhQtWTPozbImCg8gkGR4fHDruj4-DgIVALNA5IuvBKoJDH5wCxg1LU_THoKY&Signature=KTfa3z%2BAtWUXcMKBqiCVmdYno2Q%3D" />
+        <img id="kwtImg" src=""/>
 
-    {% if site.sidebar-about-description %}
-    <p>{{site.sidebar-about-description}}</p>
-    {% endif %}
-    <!-- SNS Link -->
-    {% include sns-links.html %}
-  </div>
+        {% if site.sidebar-about-description %}
+        <p>{{site.sidebar-about-description}}</p>
+        {% endif %}
+        <!-- SNS Link -->
+        {% include sns-links.html %}
+    </div>
 </section>
+<script>
+    (function () {
+        var imgUrl = "{{site.fileBaseUrl}}{{site.avatar-kwt-ny}}";
+        var img = document.getElementById("kwtImg")
+        img.src = imgUrl;
+    })();
+</script>
