@@ -1,7 +1,7 @@
 # Site settings
 title: kwt Blog
 SEOTitle: 孔维腾的博客 | kwt Blog
-header-img: img/home-bg-kwt.jpg
+header-img: /static/img/home-bg-kwt.jpg
 email: kongweiteng@sina.com
 description: "孔维腾的个人博客"
 keyword: "java,"
@@ -113,8 +113,5 @@ friends: [
 
 fileBaseUrl: "https://kongweiteng.oss-cn-beijing.aliyuncs.com/kongweiteng.github.io"
 
-avatar-kwt-ny: "/static/img/avatar-kwt-ny.jpg"
-404-bg: "/static/img/404-bg.jpg"
-home-bg: "/static/img/home-bg.jpg"
 default: "/static/img/defaultbg.jpg"
 
