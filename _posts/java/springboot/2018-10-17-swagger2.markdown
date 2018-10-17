@@ -43,7 +43,6 @@ tags:
       </dependencys> 
 ```
 
-https://www.elastic.co/cn/downloads
 
 ## swagger配置类
 
@@ -160,8 +159,8 @@ public class Swagger2 {
 
 }
 ```
-此处RequestHandlerSelectors.basePackage("com.enn.app.controller")是扫描项目的包路径。
-此处tokenPar.name("token").description("令牌(获取Token请联系管理员)").modelRef(new ModelRef("string")).parameterType("header").required(false).build(); 用来给每一个接口文档调试页面添加一个请求头的值。
+* 此处RequestHandlerSelectors.basePackage("com.enn.app.controller")是扫描项目的包路径。
+* 此处tokenPar.name("token").description("令牌(获取Token请联系管理员)").modelRef(new ModelRef("string")).parameterType("header").required(false).build(); 用来给每一个接口文档调试页面添加一个请求头的值。
 ## 调试
 * json数据
 先调用 http://localhost:8082/v2/api-docs 看是否能正常有json数据返回
