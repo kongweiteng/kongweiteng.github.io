@@ -8,7 +8,7 @@ header-img:
 catalog: true
 tags:
     - elk
-    - devops
+    - install
     - java
     - linux
 ---

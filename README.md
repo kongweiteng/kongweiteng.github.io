@@ -7,7 +7,7 @@
 ```text
 java ：java相关
 linux : linux系统相关技术
-devops : 有关运维部署
+install : 有关组件的安装
 mysql ：mysql相关
 spring boot ：spring boot相关
 spring cloud ：spring cloud相关
