@@ -2,7 +2,7 @@
 layout:     post
 title:      "spring cloud框架搭建"
 subtitle:   " \"spring cloud框架中集成各种组件\""
-date:       2018-10-16 16:00:00
+date:       2018-10-20 12:00:00
 author:     "kwt"
 header-img: 
 catalog: true
