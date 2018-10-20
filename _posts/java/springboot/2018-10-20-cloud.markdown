@@ -7,10 +7,9 @@ author:     "kwt"
 header-img: 
 catalog: true
 tags:
-    - elk
-    - install
     - java
-    - linux
+    - spring cloud
+    - spring boot
 ---
 ·
 > “elk is very good!”
