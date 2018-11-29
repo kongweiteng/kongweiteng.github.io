@@ -59,6 +59,9 @@ tail -500f logs/elasticsearch.log
 解决：vi /etc/security/limits.conf
     			* soft nofile 65536
     			* hard nofile 65536
+    			
+修改完这个参数后一定要退出一下当前用户，再进入，参数设置才能生效
+验证生效：ulimit -Hn
 
 
 10.在生产环境中可能es吃内存很多，由于es是java写的，需要在启动时设置堆内存的大小能防止内存的溢出。
