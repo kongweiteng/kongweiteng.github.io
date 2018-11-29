@@ -219,7 +219,39 @@ public class AccountingFormulaController {
         
 }
 
+```
 
+## swagger在zull中的使用
 
+随着近时间微服务的火爆，很多公司已经逐渐步入微服务时代，这样一样，很多的基础服务，很多的接口，管理的成本会更高了，所以swagger显得更加的珍贵，然而更加便利
+的是可以往zull中加上swagger文档，这样就能同时管理多个底层服务的文档了。
 
+给zull集成swagger的前提是你的底层服务已经按照上述的步骤集成好了接口文档，接下来按照下面的步骤就能够实现管理多个项目的文档。
+
+```java
+
+@Component
+@Primary
+public class DocumentationConfig implements SwaggerResourcesProvider {
+
+    @Override
+    public List<SwaggerResource> get() {
+        List resources = new ArrayList<>();
+        /**
+        *  下方的 /energy-proxy/energy-provider-business/ 是在zull中配置好的代理某一个服务（业务-business）的路径。
+        */
+        resources.add(swaggerResource("业务-business", "/energy-proxy/energy-provider-business/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("系统管理-system", "/energy-proxy/energy-provider-system/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("系统管理-passage", "/energy-proxy/energy-provider-passage/v2/api-docs", "2.0"));
+        return resources;
+    }
+
+    private SwaggerResource swaggerResource(String name, String location, String version) {
+        SwaggerResource swaggerResource = new SwaggerResource();
+        swaggerResource.setName(name);
+        swaggerResource.setLocation(location);
+        swaggerResource.setSwaggerVersion(version);
+        return swaggerResource;
+    }
+}
 ```
